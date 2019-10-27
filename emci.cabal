@@ -1,0 +1,90 @@
+name:           emci
+version:        0.1.0.0
+description:    Embedded CI
+homepage:       https://github.com/sorki/emci
+bug-reports:    https://github.com/sorki/emci/issues
+author:         Richard Marko
+maintainer:     srk@48.io
+copyright:      2020 Richard Marko
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/sorki/emci
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Emci
+                     , Emci.Checkout
+                     , Emci.Mirror
+                     , Emci.Pretty
+                     , Emci.Types
+                     , Emci.Util
+                     , Emci.Effects
+                     , Emci.Effects.Filesystem
+                     , Emci.Effects.Git
+                     , Emci.Effects.Nix
+                     , Emci.Effects.Process
+                     , Emci.Effects.Time
+  build-depends:       base >= 4.7 && < 5
+                     , bytestring
+                     , containers
+                     , directory
+                     , dhall
+                     , text
+                     , time
+                     , transformers
+                     , filepath
+                     -- deprecated, due to hs-git
+                     , system-filepath
+                     , polysemy
+                     , polysemy-plugin
+                     , polytype
+                     , prettyprinter
+                     , prettyprinter-ansi-terminal
+                     , streaming
+                     , co-log-core
+                     , co-log-polysemy
+                     , git
+                     , unix
+  default-extensions:
+    DataKinds
+    FlexibleContexts
+    GADTs
+    LambdaCase
+    BlockArguments
+    OverloadedStrings
+    PolyKinds
+    RecordWildCards
+    RankNTypes
+    ScopedTypeVariables
+    TypeApplications
+    TypeOperators
+    TypeFamilies
+    TemplateHaskell
+    NumericUnderscores
+    QuantifiedConstraints
+    FlexibleInstances
+
+  ghc-options:
+    -Wall
+    -Wunused-packages
+    -O2
+    -flate-specialise
+    -fspecialise-aggressively
+    -fplugin=Polysemy.Plugin
+
+executable emci
+  main-is: Main.hs
+  hs-source-dirs:
+      app
+  ghc-options: -threaded -rtsopts -with-rtsopts=-N
+  build-depends: base >=4.7 && <5
+               , emci
+               , optparse-applicative

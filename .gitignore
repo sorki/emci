@@ -1,0 +1,8 @@
+.stack-work/
+*~
+attic
+dist
+dist-newstyle
+result
+.ghc.*
+.history
