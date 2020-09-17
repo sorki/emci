@@ -56,7 +56,7 @@ main = execParser opts >>= \Options{..} -> runEmci cfgFile $ do
   case cmd of
     MirrorCommand mc -> case mc of
       MirrorInit -> setupMirrors
-      MirrorUpdate -> update >> error "WTF"
+      MirrorUpdate -> update
 
     CheckoutCommand cc -> case cc of
       CheckoutCreate -> createCheckout
