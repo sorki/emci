@@ -53,9 +53,7 @@ throwOnExitFailure :: Member (Error String) r => ExitCode -> Sem r ()
 throwOnExitFailure (ExitFailure e) = throw $ "Process failed with exit code: " ++ show e
 throwOnExitFailure _ = return ()
 
-
-
-
+-- Duplicate @Log x@ effect as @Tagget t (Output x)@ effect
 taggedLogOutput :: forall t x r a
     . (Member (Tagged t (Output x)) r, Member (Log x) r)
      => Sem r a
@@ -63,6 +61,7 @@ taggedLogOutput :: forall t x r a
 taggedLogOutput = intercept @(Log x) $ \case
   Log x -> logs x >> (tag @t $ output x)
 
+-- Duplicate @Log x@ effect as @Tagget t (Log x)@ effect
 taggedLogLog :: forall t x r a
     . (Member (Tagged t (Log x)) r, Member (Log x) r)
      => Sem r a
