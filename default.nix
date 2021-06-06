@@ -1,2 +1,5 @@
-{ nixpkgs ? import <nixpkgs> {}}:
-nixpkgs.haskellPackages.callCabal2nix "emci" ./. { }
+{ pkgs ? import <nixpkgs> {}}:
+let
+  src = pkgs.nix-gitignore.gitignoreSource [ ] ./.;
+in
+ pkgs.haskellPackages.callCabal2nix "emci" src { }
